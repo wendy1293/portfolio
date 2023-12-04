@@ -1,0 +1,1022 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f5f3f3;
+    color: #565555;
+    font-size: 20.9px;
+    font-family: Yu Mincho, serif;
+}
+
+h1 {
+    font-size: 88.5px;
+}
+
+h2 {
+    font-size: 33.8px;
+}
+
+@media screen and (max-width: 843px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 41.89px;
+    }
+
+    h2 {
+        font-size: 25.9px;
+    }
+}
+
+p {
+    overflow-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    height: fit-content;
+}
+
+li {
+    list-style-type: none;
+}
+
+header {
+    display: none;
+}
+
+nav {
+    position: fixed;
+    z-index: 9999;
+    left: 8.708%;
+    top: 55%;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 1.618/1;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 初期状態でnavのa要素を左に隠す */
+nav a {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.9s ease, opacity 0.5s ease;
+}
+
+/* navに.activeクラスが付与されたときのアニメーション */
+nav.active a:nth-child(1) {
+    transform: translateX(0);
+    opacity: 1;
+    /* 1番目の要素の遅延を削除して、left-columnと同じタイミングに */
+}
+
+nav.active a:nth-child(2) {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: .2s;
+    /* 2番目の要素の遅延 */
+}
+
+nav.active a:nth-child(3) {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: .6s;
+    /* 3番目の要素の遅延 */
+}
+
+
+nav a {
+    position: relative;
+    display: inline-block;
+    margin: 27.3px 0;
+    width: fit-content;
+}
+
+nav a:nth-of-type(2) {
+    margin: 0;
+}
+
+nav a:hover {
+    color: #808080;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #808080;
+    transition: all .3s;
+    transform: scale(0, 1);
+    transform-origin: left top;
+}
+
+nav a:hover::after {
+    transform: scale(1, 1);
+}
+
+
+@media screen and (max-width: 843px) {
+    nav {
+        display: none;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: calc(100vw*0.618);
+    }
+
+    header img {
+        display: block;
+        width: 40%;
+        height: calc(80%*0.618);
+        aspect-ratio: 1.618/1;
+        flex-shrink: 0;
+    }
+
+    .open-btn4 {
+        position: relative;
+        z-index: 10000;
+        /*ボタン内側の基点となるためrelativeを指定*/
+        top: 0.618%;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        border: 2px solid #565555;
+        width: 76.34px;
+        height: 76.34px;
+        margin: 3.854%;
+        flex-shrink: 0;
+    }
+
+    /*ボタン内側*/
+    .open-btn4 span {
+        display: inline-block;
+        transition: all 0.4s;
+        /*アニメーションの設定*/
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 2px;
+        background: #565555;
+        width: 47.18px;
+    }
+
+    .open-btn4 span:nth-of-type(1) {
+        top: 20%;
+    }
+
+    .open-btn4 span:nth-of-type(2) {
+        top: 35%;
+    }
+
+    .open-btn4 span:nth-of-type(3) {
+        top: 50%;
+    }
+
+    .open-btn4::after {
+        content: "Menu";
+        /*3つ目の要素のafterにMenu表示を指定*/
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+    }
+
+    /*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+    .open-btn4.active {
+        border: 2px solid #f5f3f3;
+    }
+
+    .open-btn4.active span {
+        background: #f5f3f3;
+    }
+
+    .open-btn4.active span:nth-of-type(1) {
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: 47.18;
+    }
+
+    .open-btn4.active span:nth-of-type(2) {
+        opacity: 0;
+    }
+
+    .open-btn4.active span:nth-of-type(3) {
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 47.18;
+    }
+
+    .open-btn4.active::after {
+        content: "Close";
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #f5f3f3;
+    }
+
+    #g-nav {
+        /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+        position: fixed;
+        z-index: 9998;
+        /*ナビのスタート位置と形状*/
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        /*ナビの高さ*/
+        background: rgba(86, 85, 85, 95);
+        /*動き*/
+        transition: right 0.9s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .g-nav-area {
+        position: relative;
+    }
+
+    .g-nav-logo {
+        position: absolute;
+        top: 0.618%;
+        left: 0.618%;
+        z-index: 9999;
+        width: 80%;
+    }
+
+    #g-nav h2 {
+        margin-bottom: 8.708%;
+        color: #f5f3f3;
+    }
+
+    /*アクティブクラスがついたら位置を0に*/
+    #g-nav.panelactive {
+        right: 0;
+    }
+
+    .for-title {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .for-logo,
+    .for-logo.active,
+    .for-logo img {
+        display: none;
+    }
+}
+
+/* クリックしたらナビが右から左に出現 */
+
+
+.golden-ratio {
+    display: flex;
+}
+
+@media screen and (max-width: 843px) {
+    .golden-ratio {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.for-watermark {
+    width: 86.25%;
+    height: 86.40%;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+
+@media screen and (max-width: 843px) {
+    .for-watermark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+    }
+
+    .watermark {
+        transform: rotate(90deg);
+        transform-origin: top left;
+        font-size: smaller;
+        /* スマートフォン用のフォントサイズに調整 */
+    }
+}
+
+
+.for-title {
+    width: 61.81%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    justify-content: right;
+
+}
+
+/* index */
+.main {
+    width: 90%;
+    height: calc(90vw * 0.618);
+    aspect-ratio: 1/1.618;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 414px) {
+    .main {
+        margin-bottom: 8%;
+        /* スマートフォン用の余白 */
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .main {
+        margin-bottom: 10%;
+        /* タブレット用の余白 */
+    }
+}
+
+@media (min-width: 1024px) {
+    .main {
+        margin-bottom: 12%;
+        /* PC用の余白 */
+    }
+}
+
+
+svg .title-1 {
+    stroke-dashoffset: 3360.0966796875px;
+    stroke-dasharray: 3360.0966796875px;
+    -webkit-transition: stroke-dashoffset 5s ease 0s, fill 3s ease 0.9s;
+    transition: stroke-dashoffset 5s ease 0s, fill 3s ease 0.9s;
+}
+
+svg.active .title-1 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-2 {
+    stroke-dashoffset: 4816.099609375px;
+    stroke-dasharray: 4816.099609375px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 0.1s, fill 3s ease 1s;
+    transition: stroke-dashoffset 5s ease 0.1s, fill 3s ease 1s;
+}
+
+svg.active .title-2 {
+    stroke-dashoffset: 0;
+    fill: rgb(0, 0, 0);
+}
+
+svg .title-3 {
+    stroke-dashoffset: 3360.08544921875px;
+    stroke-dasharray: 3360.08544921875px;
+    -webkit-transition: stroke-dashoffset 5s ease 0.2s, fill 3s ease 1.1s;
+    transition: stroke-dashoffset 5s ease 0.2s, fill 3s ease 1.1s;
+}
+
+svg.active .title-3 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-4 {
+    stroke-dashoffset: 3360.0966796875px;
+    stroke-dasharray: 3360.0966796875px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 0.30000000000000004s, fill 3s ease 1.2000000000000002s;
+    transition: stroke-dashoffset 5s ease 0.30000000000000004s, fill 3s ease 1.2000000000000002s;
+}
+
+svg.active .title-4 {
+    stroke-dashoffset: 0;
+    fill: rgb(86, 85, 85);
+}
+
+svg .title-5 {
+    stroke-dashoffset: 3584.4482421875px;
+    stroke-dasharray: 3584.4482421875px;
+    -webkit-transition: stroke-dashoffset 5s ease 0.4s, fill 3s ease 1.3s;
+    transition: stroke-dashoffset 5s ease 0.4s, fill 3s ease 1.3s;
+}
+
+svg.active .title-5 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-6 {
+    stroke-dashoffset: 5152.447265625px;
+    stroke-dasharray: 5152.447265625px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 0.5s, fill 3s ease 1.4s;
+    transition: stroke-dashoffset 5s ease 0.5s, fill 3s ease 1.4s;
+}
+
+svg.active .title-6 {
+    stroke-dashoffset: 0;
+    fill: rgb(0, 0, 0);
+}
+
+svg .title-7 {
+    stroke-dashoffset: 3584.438720703125px;
+    stroke-dasharray: 3584.438720703125px;
+    -webkit-transition: stroke-dashoffset 5s ease 0.6000000000000001s, fill 3s ease 1.5s;
+    transition: stroke-dashoffset 5s ease 0.6000000000000001s, fill 3s ease 1.5s;
+}
+
+svg.active .title-7 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-8 {
+    stroke-dashoffset: 3584.4482421875px;
+    stroke-dasharray: 3584.4482421875px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 0.7000000000000001s, fill 3s ease 1.6s;
+    transition: stroke-dashoffset 5s ease 0.7000000000000001s, fill 3s ease 1.6s;
+}
+
+svg.active .title-8 {
+    stroke-dashoffset: 0;
+    fill: rgb(86, 85, 85);
+}
+
+svg .title-9 {
+    stroke-dashoffset: 3534.38818359375px;
+    stroke-dasharray: 3534.38818359375px;
+    -webkit-transition: stroke-dashoffset 5s ease 0.8s, fill 3s ease 1.7000000000000002s;
+    transition: stroke-dashoffset 5s ease 0.8s, fill 3s ease 1.7000000000000002s;
+}
+
+svg.active .title-9 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-10 {
+    stroke-dashoffset: 5120.39013671875px;
+    stroke-dasharray: 5120.39013671875px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 0.9s, fill 3s ease 1.8s;
+    transition: stroke-dashoffset 5s ease 0.9s, fill 3s ease 1.8s;
+}
+
+svg.active .title-10 {
+    stroke-dashoffset: 0;
+    fill: rgb(0, 0, 0);
+}
+
+svg .title-11 {
+    stroke-dashoffset: 3534.37548828125px;
+    stroke-dasharray: 3534.37548828125px;
+    -webkit-transition: stroke-dashoffset 5s ease 1s, fill 3s ease 1.9s;
+    transition: stroke-dashoffset 5s ease 1s, fill 3s ease 1.9s;
+}
+
+svg.active .title-11 {
+    stroke-dashoffset: 0;
+}
+
+svg .title-12 {
+    stroke-dashoffset: 3534.38818359375px;
+    stroke-dasharray: 3534.38818359375px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 1.1s, fill 3s ease 2s;
+    transition: stroke-dashoffset 5s ease 1.1s, fill 3s ease 2s;
+}
+
+svg.active .title-12 {
+    stroke-dashoffset: 0;
+    fill: rgb(86, 85, 85);
+}
+
+svg .title-13 {
+    stroke-dashoffset: 5120.39013671875px;
+    stroke-dasharray: 5120.39013671875px;
+    fill: transparent;
+    -webkit-transition: stroke-dashoffset 5s ease 1.2000000000000002s, fill 3s ease 2.1s;
+    transition: stroke-dashoffset 5s ease 1.2000000000000002s, fill 3s ease 2.1s;
+}
+
+svg.active .title-13 {
+    stroke-dashoffset: 0;
+    fill: rgb(0, 0, 0);
+}
+
+svg .title-14 {
+    stroke-dashoffset: 3534.38818359375px;
+    stroke-dasharray: 3534.38818359375px;
+    -webkit-transition: stroke-dashoffset 5s ease 1.3s, fill 3s ease 2.2s;
+    transition: stroke-dashoffset 5s ease 1.3s, fill 3s ease 2.2s;
+}
+
+svg.active .title-14 {
+    stroke-dashoffset: 0;
+}
+
+
+.for-logo {
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+}
+
+.on-top-page {
+    width: 38.10%;
+    left: 0;
+    transition: opacity 1s ease;
+}
+
+.on-top-page.active {
+    opacity: 1;
+}
+
+.for-logo a {
+    display: inline-block;
+}
+
+.for-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1.618/1;
+}
+
+footer {
+    width: 100%;
+    height: calc(99vh*0.618);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+@media screen and (max-width: 843px) {
+    footer {
+        /* height: 100%; */
+    }
+}
+
+.for-footer {
+    position: relative;
+    width: 60%;
+    height: calc(60%*0.618);
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+@media screen and (max-width: 843px) {
+    .second-line {
+        height: fit-content;
+    }
+
+    .for-footer h1 {
+        font-size: 20.9px;
+    }
+
+    .for-footer h2 {
+        font-size: 16px;
+    }
+}
+
+#contact {
+    width: fit-content;
+    height: auto;
+    position: relative;
+    display: inline-block;
+}
+
+#contact::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #808080;
+    transition: all .3s;
+    transform: scale(0, 1);
+    transform-origin: left top;
+}
+
+#contact:hover::after {
+    transform: scale(1, 1);
+}
+
+#contact:hover {
+    color: #808080;
+}
+
+.for-footer.second-line {
+    position: relative;
+}
+
+.top-link {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    bottom: 2.618%;
+    right: 0;
+}
+
+.top-link:hover {
+    color: #808080;
+}
+
+@media screen and (max-width: 843px) {
+    .for-footer.second-line {
+        position: relative;
+    }
+
+    .top-link {
+        position: absolute;
+        bottom: 2.618%;
+        right: 0;
+    }
+}
+
+
+.copyright {
+    position: absolute;
+    bottom: 1.618%;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+/* index end */
+
+/* about */
+
+.left-column {
+    width: 15%;
+    left: 5.472%;
+    transform: translateX(-100%);
+    transition: transform 0.9s ease, opacity 0.5s ease;
+}
+
+.left-column.active {
+    position: fixed;
+    z-index: 9999;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.left-column.active:hover {
+    opacity: .8;
+}
+
+/* .watermark */
+
+.watermark {
+    position: absolute;
+    top: 0;
+    left: 16.18%;
+    height: fit-content;
+    line-height: 1.1;
+    z-index: -1;
+    font-size: 231.7px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+/* .for-heading */
+.for-heading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: calc(100vw * 0.618);
+    height: 100%;
+}
+
+/* .for-heading ul */
+.ul-detail {
+    margin-top: 7.090%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 60%;
+    height: 100%;
+}
+
+.ul-detail-links {
+    margin-top: 0;
+}
+
+/* .heading */
+.heading {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 1.618%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* .heading h1 */
+.heading h1 {
+    width: 100%;
+}
+
+/* .translated */
+.translated {
+    margin-left: 3.854%;
+}
+
+/* .for-heading a */
+.for-heading a {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+}
+
+.for-heading a:hover {
+    color: #808080;
+}
+
+.for-heading a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 40%);
+    /* 線の幅の半分（80%の半分は40%）だけ左にずらす */
+    width: 80%;
+    height: 2px;
+    background: #808080;
+    transition: all .3s;
+    transform: scale(0, 1);
+    transform-origin: center;
+    /* 変形の原点を中央に設定 */
+}
+
+.for-heading a:hover::after {
+    transform: scale(1, 1);
+    /* ホバー時に線を伸ばす */
+}
+
+
+/* アニメーション用のクラス */
+
+.animate-in.watermark {
+    opacity: 0.1;
+    /* .watermarkの透明度を0.1に設定 */
+}
+
+.animate-in.heading {
+    transform: translateY(0);
+    opacity: 1;
+    /* .headingの透明度を1に設定 */
+}
+
+
+/* キーフレームの定義 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.1;
+        /* .watermarkの透明度を0.1に設定 */
+    }
+}
+
+@keyframes fadeInHeading {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+        /* .headingの透明度を1に設定 */
+    }
+}
+
+.second-items {
+    margin-top: 5.472%;
+    flex-direction: column;
+}
+
+.links {
+    position: absolute;
+    bottom: 5.472%;
+    right: 5.472%;
+    display: flex;
+    width: 20%;
+    height: fit-content;
+}
+
+.links a {
+    width: fit-content;
+}
+
+.links a:nth-of-type(2) {
+    margin-left: 8.708%;
+}
+
+.heading-detail-column {
+    flex-direction: column;
+}
+
+#personality {
+    height: calc(90vw*1.618);
+    margin-bottom: 0;
+}
+
+.for-personality {
+    font-size: 143.2px;
+}
+
+.personality-photo {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    transform: translateY(-20%);
+    aspect-ratio: 1.618/1;
+    width: 73.32%;
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.personality-photo.active {
+    opacity: 1;
+}
+
+.for-heading-on-personality {
+    height: 50%;
+    top: 27.66%;
+}
+
+.for-heading-on-personality ul {
+    width: 100%;
+}
+
+.heading-text-for-personality {
+    position: relative;
+}
+
+.heading-text-for-personality h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* about end */
+
+/* works */
+
+.works-all-wrapper {
+    position: absolute;
+    top: 25%;
+    left: 4.236%;
+    width: 100%;
+    height: calc(100%*0.618);
+    display: flex;
+}
+
+.works-column-wrapper {
+    width: 100%;
+    height: calc(100%*1.618);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.works-column-wrapper img {
+    width: 100%;
+    aspect-ratio: 1.618/1;
+    height: auto;
+}
+
+.works-all-wrapper a {
+    position: relative;
+    margin-right: 1.618%;
+    padding: 1.618%;
+    display: block;
+    overflow: hidden;
+}
+
+.works-all-wrapper a:nth-of-type(3) {
+    margin-right: 0;
+}
+
+
+/* ボーダー */
+.border {
+    position: absolute;
+    display: block;
+    width: 2px;
+    height: 2px;
+    background-color: #808080;
+    overflow: hidden;
+    transition: .3s;
+}
+
+/* 上ボーダー */
+.border.top {
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: translate3d(-100%, 0, 0);
+}
+
+/* 右ボーダー */
+.border.right {
+    height: 100%;
+    top: 0;
+    right: 0;
+    transform: translate3d(0, -100%, 0);
+}
+
+/* 下ボーダー */
+.border.bottom {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+/* 左ボーダー */
+.border.left {
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    transform: translate3d(0, 100%, 0);
+}
+
+/* マウスオーバー */
+.works-all-wrapper a:hover {
+    opacity: .6;
+}
+
+.works-all-wrapper a:hover .border {
+    transform: translate3d(0, 0, 0);
+}
+
+.works-thumbnail-text-area {
+    text-align: left;
+}
+
+.link-only {
+    z-index: -1;
+}
+
+.mockup-large {
+    aspect-ratio: 1.618/1;
+    height: auto;
+    z-index: -2;
+}
+
+.mockup-large img {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.go-page-links {
+    width: 50%;
+}
+
+/* works end */
